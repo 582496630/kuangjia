@@ -16,8 +16,10 @@ Product ID:${product.id}<br/>
 Product Name:${product.name}<br/>
 Description:${product.description}<br/>
 Price:￥${product.price}<br/>
-
+Many:${product.many}<br/>
+Make:${product.make}<br/>
 </div>
+<a href="Javascript:window.history.go(-1)">返回上一页</a>
 
 </body>
 </html>

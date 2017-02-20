@@ -36,6 +36,8 @@ public class ProductController {
 		
 		Product product =new Product();
 		product.setName(productForm.getName());
+		product.setMake(productForm.getMake());
+		product.setMany(productForm.getMany());
 		product.setDescription(productForm.getDescription());
 		
 		try {
@@ -65,13 +67,6 @@ public class ProductController {
 		model.addAttribute("product",product);
 		return "ProductView";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 
 }

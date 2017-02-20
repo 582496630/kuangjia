@@ -11,16 +11,21 @@
 		<form action="product_save.action" method="post">
 			<fieldset>
 				<legend>Add a Product</legend>
-				<label for="name">Product Name:</label> <input type="text" id="name"
-					name="name" value="" tabindex="1" /> <label for="description">Description</label>
-				<input type="text" id="description" name="description" value=""
-					tabindex="2" /> <label for="price">Price</label> <input
-					type="text" id="price" name="price" value="" tabindex="3" />
+				<label for="name">Product Name:</label>
+				 <input type="text" id="name" name="name" value="" tabindex="1" /> 
+				 <label for="description">Description</label>
+				<input type="text" id="description" name="description" value="" tabindex="2" /> 
+					<label for="price">Price</label> 
+					<input type="text" id="price" name="price" value="" tabindex="3" />
+					<label for="many">Many</label> 
+					<input type="text" id="many" name="many" value="" tabindex="4" />
+					<label for="make">Make</label> 
+					<input type="text" id="make" name="make" value="" tabindex="5" />
 
 				<div id="buttons">
 					<label for="dummy"></label> <input type="reset" id="reset"
-						tabindex="4"> <input type="submit" id="submit"
-						tabindex="5" value="Add Product">
+						tabindex="6"> <input type="submit" id="submit"
+						tabindex="7" value="Add Product">
 				</div>
 			</fieldset>
 		</form>
