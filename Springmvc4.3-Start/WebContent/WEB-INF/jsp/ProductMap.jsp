@@ -14,34 +14,41 @@
 <body>
 	<div>
 		<p>...................</p>
+		
+		
 		<table border="1">
 		<tr>
+		<td>序号</td>
 		<td>id</td>
+		<td>name</td>
+		<td>price</td>
+		<td>many</td>
+		<td>make</td>
+		<td>description</td>
+		<td>删除</td>
+		<td>修改</td>
 		
 		</tr>
-		
-		<%-- <c:forEach var="productMap" items="${stringList}" varStatus="vs">
+	
+		<c:forEach var="productall" items="${allProductList}" varStatus="vs">
 		<tr>
-		<td>${productMap}</td>
-		
+		<!-- vs.count  计数 -->
+		<td>${vs.count}</td>
+		<td>${productall.value.id}</td>
+		<td>${productall.value.name}</td>
+		<td>${productall.value.price}</td>
+		<td>${productall.value.many}</td>
+		<td>${productall.value.make}</td>
+		<td>${productall.value.description}</td>
+		<td>
+		<a href="delete_product.action?id=${productall.value.id}">delete</a>
+		</td>
+		<td><a href="update_product1.action?id=${productall.value.id}">update</a></td>
 		</tr>
-		</c:forEach> --%>
-		<c:forEach var="product" items="${productMap}" varStatus="vs">
-		<tr>
-		<td>${product}</td>
-		<td>${product.name}</td>
-		<td>${product.price}</td>
-		
-		</tr>
-		</c:forEach> 
-		<c:forEach var="product" items="${list}" varStatus="vs">
-		<tr>
-		<td>${product}</td>
-		
-		
-		</tr>
+
 		</c:forEach> 
 		</table>
+		<p><a href="product_input.action">返回添加页面</a></p>
 	</div>
 
 </body>

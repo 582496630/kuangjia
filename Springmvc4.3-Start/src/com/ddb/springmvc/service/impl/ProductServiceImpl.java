@@ -1,6 +1,8 @@
 package com.ddb.springmvc.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -29,10 +31,31 @@ public class ProductServiceImpl implements ProductService {
 		products.put(newid,product);
 		return product;
 	}
-	
+
 	@Override
 	public Product get(long id){
 		return products.get(id);
-		
 	}
+	
+	//返回map，显示所有产品内容
+	@Override
+	public  Map<Long,Product> allProduct(){
+		return products;
+	}
+	
+	@Override
+	public  Map<Long,Product> deleteProduct(Long id){
+		products.remove(id);
+		return products;
+	}
+	@Override
+	public Map<Long,Product> updateProduct(Long id,Product product){
+		
+		//保存到数据库中  此步模拟数据保存到数据库中
+		Long ids = id;
+		products.put(id,product);
+		Long idss = id;
+		return products;
+	}
+	
 }

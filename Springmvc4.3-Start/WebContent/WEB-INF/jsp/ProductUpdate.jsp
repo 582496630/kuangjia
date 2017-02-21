@@ -8,7 +8,8 @@
 </head>
 <body>
 	<div>
-		<form action="product_save.action" method="post">
+		<form action="update_product2.action?id=${productUpdateId}" method="post">
+			<p>ID:${productUpdateId}</p>
 			<fieldset>
 				<legend>Add a Product</legend>
 				<label for="name">Product Name:</label>
@@ -25,8 +26,7 @@
 				<div id="buttons">
 					<label for="dummy"></label> <input type="reset" id="reset"
 						tabindex="6"> <input type="submit" id="submit"
-						tabindex="7" value="Add Product">
-						<a href="product_map.action">select</a>
+						tabindex="7" value="修改 ">
 				</div>
 			</fieldset>
 		</form>
