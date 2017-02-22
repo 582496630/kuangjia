@@ -15,29 +15,25 @@
 		<form:errors path="*"></form:errors><br/><br/>
 				
 				<label for="name">Product Name:</label>
-		<form:input path="name" type="text" id="name" name="name" value="" tabindex="1" /><br/>
-				<form:errors path="name"></form:errors><br/>
+		<form:input path="name" type="text" id="name" name="name" value="" tabindex="1" />
+				<form:errors path="name"></form:errors><br/><br/>
 				
-				 <label for="description">Description</label>
+				 <label for="description">Description:</label>
 				<form:input path="description" type="text" id="description" name="description" value="" tabindex="2" /> 
-		<br/>
-		<form:errors path="description"></form:errors><br/>
+		<form:errors path="description"></form:errors><br/><br/>
 					
-					<label for="price">Price</label> 
+					<label for="price">Product Price:</label> 
 					<form:input path="price" type="text" id="price" name="price" value="" tabindex="3" />
-		<br/>
-		<%-- <form:errors path="price"></form:errors> --%>
-				<br/>
-					<label for="many">Many</label> 
+		<form:errors path="price"></form:errors> 
+				<br/><br/>
+					<label for="many">Product Many:</label> 
 					<form:input path="many" type="text" id="many" name="many" value="" tabindex="4" />
-		<br/>
-		<%-- <form:errors path="many"></form:errors> --%>
-		<br/>
+		<form:errors path="many"></form:errors> 
+		<br/><br/>
 					
-					<label for="make">Make</label> 
+					<label for="make">Product Make:</label> 
 					<form:input path="make" type="text" id="make" name="make" value="" tabindex="5" />
-	<br/>
-		<form:errors path="make"></form:errors><br/> 
+		<form:errors path="make"></form:errors><br/><br/>
 	
 
 				<div id="buttons">

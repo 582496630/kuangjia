@@ -99,19 +99,21 @@ public class ProductController {
 		return "ProductMap";
 	}
 
-	// 跳转到修改的jsp页面
+/*	// 跳转到修改的jsp页面
 	@RequestMapping(value = "/update_product1?*")
 	public String updatePrduct1(@RequestParam Long id, Model model) {
 		logger.info("deletePrduct 被调用");
+		Long ids =id;
 		model.addAttribute("productUpdateId", id);
 		return "ProductUpdate";
 
-	}
+	}*/
 	
 	
 	//验证Update页面添加的内容要符合要求
 	@RequestMapping(value="/update_product1?*", method = {RequestMethod.GET})
-	public String testUpdate(Model model){
+	public String testUpdate(@RequestParam Long id ,Model model){
+		model.addAttribute("productUpdateId", id);
 		
 		if(!model.containsAttribute("contentUpdate")){
 			model.addAttribute("contentUpdate", new Product());
@@ -125,6 +127,7 @@ public class ProductController {
 			RedirectAttributes redirectAttributes,ProductForm productForm) 
 					throws NoSuchAlgorithmException{
 		
+		model.addAttribute("productUpdateId", id);
 		//如果有验证错误 返回到form页面
         if(result.hasErrors())
             return "ProductUpdate";;
