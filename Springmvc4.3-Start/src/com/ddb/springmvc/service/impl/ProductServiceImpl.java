@@ -1,8 +1,6 @@
 package com.ddb.springmvc.service.impl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -11,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ddb.springmvc.domain.Product;
 import com.ddb.springmvc.service.ProductService;
 
-@Service
+@Service   //一般都标注在接口的实现类上
 public class ProductServiceImpl implements ProductService {
 	private Map<Long, Product> products = new HashMap<Long, Product>();// 模数据库的数据保存与获取
 	private AtomicLong generator = new AtomicLong();

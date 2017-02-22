@@ -1,16 +1,16 @@
 package com.ddb.springmvc.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,8 +20,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ddb.springmvc.domain.Product;
 import com.ddb.springmvc.form.ProductForm;
 import com.ddb.springmvc.service.ProductService;
-
-import sun.util.logging.resources.logging;
 
 @Controller
 public class ProductController {
@@ -38,10 +36,15 @@ public class ProductController {
 		return "ProductForm";
 	}
 
-	@RequestMapping(value = "/product_save", method = RequestMethod.POST)
-	public String saveProduct(ProductForm productForm, RedirectAttributes redirectAttributes) {
+/*	
+	//正在改正，获取不到前端页面的内容   验证之后  返回路径不对  
+	//思路把saveProduct方法内容放到 验证的post的方法下，验证成功直接转到view页面
+	@RequestMapping(value = "/product_save", method = RequestMethod.GET)
+//	public String saveProduct(ProductForm productForm, RedirectAttributes redirectAttributes) {
+		public String saveProduct( ProductForm productForm, RedirectAttributes redirectAttributes) {
 		logger.info("saveProduct 被调用");
-
+		
+		@RequestParam Product product 
 		Product product = new Product();
 		String name = productForm.getName();
 		product.setName(productForm.getName());
@@ -55,13 +58,15 @@ public class ProductController {
 			e.printStackTrace();
 		}
 		// add product
+		
 		Product saveProduct = productService.add(product);
 		// 使用下面的对象可以给重定向传值
 		redirectAttributes.addFlashAttribute("message", "The product was successfully added!");
 		return "redirect:/product_view/" + saveProduct.getId() + ".action";
-	}
+	}*/
 
-	@RequestMapping(value = "/product_view/{id}") // {}内的id为路径变量
+	//跳转到jsp页面，并把数据通过model传到前端
+	@RequestMapping(value = "/product_view/{id}" ) // {}内的id为路径变量
 	public String viewProduct(@PathVariable Long id, Model model) {
 		Product product = productService.get(id);
 
@@ -102,15 +107,31 @@ public class ProductController {
 		return "ProductUpdate";
 
 	}
-
+	
+	
+	//验证Update页面添加的内容要符合要求
+	@RequestMapping(value="/update_product1?*", method = {RequestMethod.GET})
+	public String testUpdate(Model model){
+		
+		if(!model.containsAttribute("contentUpdate")){
+			model.addAttribute("contentUpdate", new Product());
+		}
+		return "ProductUpdate";
+	}
+	
+	@RequestMapping(value="/update_product1?*", method = {RequestMethod.POST})
+	public String test(@RequestParam Long id,Model model,
+			@Valid @ModelAttribute("contentUpdate") Product product, BindingResult result,
+			RedirectAttributes redirectAttributes,ProductForm productForm) 
+					throws NoSuchAlgorithmException{
+		
+		//如果有验证错误 返回到form页面
+        if(result.hasErrors())
+            return "ProductUpdate";;
+        
 	// 把修改后的值存入map中在传到JSP页面
-	@RequestMapping(value = "/update_product2?*")
-	public String updatePrduct2(ProductForm productForm, @RequestParam Long id, Model model) {
 		logger.info("updatePrduct2 被调用");
 
-		Product product = new Product();
-
-		String name = productForm.getName();
 		product.setId(id);
 		product.setName(productForm.getName());
 		product.setMake(productForm.getMake());
@@ -124,9 +145,48 @@ public class ProductController {
 		}
 		// add product
 		Map<Long, Product> mapProduct = productService.updateProduct(id, product);
-		Long ids = id;
 		model.addAttribute("allProductList", mapProduct);
 		return "ProductMap";
+	}
+
+	
+	
+	//验证Form页面添加的内容要符合要求
+	@RequestMapping(value="/product_input", method = {RequestMethod.GET})
+	public String test(Model model){
+		
+		if(!model.containsAttribute("contentModel")){
+			model.addAttribute("contentModel", new Product());
+		}
+		return "ProductForm";
+	}
+	
+	@RequestMapping(value="/product_input", method = {RequestMethod.POST})
+	public String test(Model model, @Valid @ModelAttribute("contentModel") Product product, BindingResult result,RedirectAttributes redirectAttributes,ProductForm productForm) throws NoSuchAlgorithmException{
+		
+		//如果有验证错误 返回到form页面
+        if(result.hasErrors())
+            return "ProductForm";;
+    	//return "redirect:/product_save/"+product+".action";
+            
+            
+            //当验证通过时，执行下面的调用service 中的add方法   向map中添加数据
+        		logger.info("saveProduct 被调用");
+        		
+        		product.setName(productForm.getName());
+        		product.setMake(productForm.getMake());
+        		product.setMany(productForm.getMany());
+        		product.setDescription(productForm.getDescription());
+        		try {
+        			product.setPrice(Double.parseDouble(productForm.getPrice()));
+        		} catch (Exception e) {
+        			e.printStackTrace();
+        		}
+        		
+        		Product saveProduct = productService.add(product);
+        		// 使用下面的对象可以给重定向传值
+        		redirectAttributes.addFlashAttribute("message", "The product was successfully added!");
+        		return "redirect:/product_view/" + saveProduct.getId() + ".action";
 	}
 
 }
