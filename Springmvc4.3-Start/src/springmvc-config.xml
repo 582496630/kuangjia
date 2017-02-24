@@ -45,7 +45,7 @@
    
     <!-- 当上面要访问的静态资源不包括在上面的配置中时，则根据此配置来访问 -->
     <!-- 这个不能少，否则文本框的数据验证就无法匹配到resource.properties 的数据-->
-     <mvc:default-servlet-handler/> 
+     <mvc:default-servlet-handler/> <!-- 会影响Product类数据验证的注解中的message是谁 -->
 
 
 
