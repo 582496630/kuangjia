@@ -6,37 +6,24 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-
-
-<!-- 默认的注解映射的支持 -->
-	<mvc:annotation-driven validator="validator"
-		conversion-service="conversion-service" />
+	<!-- 默认的注解映射的支持 -->
+	<mvc:annotation-driven validator="validator" conversion-service="conversion-service" />
 
 	<bean id="validator"
 		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
 		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
-		<!--不设置则默认为classpath下的 ValidationMessages.properties -->
+		<!--不设置则默认为classpath下的resource.properties -->
 		<property name="validationMessageSource" ref="validatemessageSource" />
 	</bean>
 	<bean id="conversion-service"
 		class="org.springframework.format.support.FormattingConversionServiceFactoryBean" />
 	<bean id="validatemessageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-		<property name="basename" value="classpath:validatemessages" />
+		<property name="basename" value="classpath:resource" />
 		<property name="fileEncodings" value="utf-8" />
 		<property name="cacheSeconds" value="120" />
 	</bean>
-
-
-
-
-
-
-
-
-
-
-
+	
 
 	<!-- 使用传统配置方式 -->
 	<!-- <bean name = "/product_input.action" class="com.ddb.springmvc.controller.InputProductController" 
@@ -51,8 +38,16 @@
 		servlet） 如果没有<mvc:annotation-driven /> <mvc:resources location="" mapping=""/>会阻止任意控制器被调用， 
 		若不需要Resources 则不需要<mvc:resources /> -->
 
-	<mvc:annotation-driven />
-	<mvc:resources location="/" mapping="/*.html"></mvc:resources>
+	
+	<!-- <mvc:annotation-driven />
+	<mvc:resources location="/" mapping="/*.html"></mvc:resources>  -->
+
+   
+    <!-- 当上面要访问的静态资源不包括在上面的配置中时，则根据此配置来访问 -->
+    <!-- 这个不能少，否则文本框的数据验证就无法匹配到resource.properties 的数据-->
+     <mvc:default-servlet-handler/> 
+
+
 
 	<!-- 配置Springmvc的视图解析器 视图解析器自动增加前缀和后缀 -->
 	<bean id="viewResolver"
@@ -74,18 +69,5 @@
 
 	<bean id="mappingJacksonHttpMessageConverter"
 		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </beans>

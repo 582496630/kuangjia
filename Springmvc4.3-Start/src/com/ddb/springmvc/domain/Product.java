@@ -1,9 +1,11 @@
 package com.ddb.springmvc.domain;
 
+
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -37,17 +39,6 @@ public class Product {
 	@NotNull(message="{price.not.empty}")
 	private Double price;
 
-	public Product() {
-		super();
-	}
-
-	public Product(Long id, String name, Long many, String make, String description, Double price) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.many = many;
-		this.make = make;
-		this.description = description;
-		this.price = price;
-	}
+	
+	
 }

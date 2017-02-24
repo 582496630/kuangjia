@@ -158,18 +158,18 @@ public class ProductController {
 	@RequestMapping(value="/product_input", method = {RequestMethod.GET})
 	public String test(Model model){
 		
-		if(!model.containsAttribute("contentModel")){
-			model.addAttribute("contentModel", new Product());
+		if(!model.containsAttribute("contentModelForm")){
+			model.addAttribute("contentModelForm", new Product());
 		}
 		return "ProductForm";
 	}
 	
 	@RequestMapping(value="/product_input", method = {RequestMethod.POST})
-	public String test(Model model, @Valid @ModelAttribute("contentModel") Product product, BindingResult result,RedirectAttributes redirectAttributes,ProductForm productForm) throws NoSuchAlgorithmException{
+	public String test(Model model, @Valid @ModelAttribute("contentModelForm") Product product, BindingResult result,RedirectAttributes redirectAttributes,ProductForm productForm) throws NoSuchAlgorithmException{
 		
 		//如果有验证错误 返回到form页面
         if(result.hasErrors())
-            return "ProductForm";;
+            return "ProductForm";
     	//return "redirect:/product_save/"+product+".action";
             
             
